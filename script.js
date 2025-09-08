@@ -25,6 +25,10 @@ function addBookToLibrary(book) {
   myLibrary.push(book);
 }
 
+Book.prototype.toggleRead = function () {
+  this.read = !this.read;
+};
+
 //=================Initial Database=================
 const book1 = new Book("The Hobbit", "J.R.R. Tolkien", 310, true);
 const book2 = new Book("1984", "George Orwell", 328, false);
@@ -54,15 +58,19 @@ function displayBooks() {
     pages.textContent = `Pages: ${book.pages}`;
     bookCard.appendChild(pages);
 
+    const bookBtns = document.createElement("div");
+    bookBtns.classList.add("book-btns");
+    bookCard.appendChild(bookBtns);
+
     //============Read Book========================
     const readBtn = document.createElement("button");
     readBtn.textContent = book.read ? "Read" : "Not Read";
     readBtn.classList.add("function-btn");
     readBtn.classList.add(book.read ? "btn-read" : "btn-not-read");
-    bookCard.appendChild(readBtn);
+    bookBtns.appendChild(readBtn);
 
     readBtn.addEventListener("click", () => {
-      book.read = !book.read;
+      book.toggleRead();
       readBtn.classList.remove("btn-read", "btn-not-read");
       readBtn.classList.add(book.read ? "btn-read" : "btn-not-read");
       readBtn.textContent = book.read ? "Read" : "Not Read";
@@ -73,7 +81,7 @@ function displayBooks() {
     deleteBtn.classList.add("delete-btn");
     deleteBtn.textContent = "Delete";
     deleteBtn.classList.add("function-btn");
-    bookCard.appendChild(deleteBtn);
+    bookBtns.appendChild(deleteBtn);
     deleteBtn.addEventListener("click", () => {
       const index = myLibrary.findIndex((thisBook) => thisBook.id === book.id);
       if (index !== -1) {
