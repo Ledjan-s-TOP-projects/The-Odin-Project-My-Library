@@ -4,6 +4,10 @@ const container = document.querySelector(".container");
 const dialog = document.querySelector("dialog");
 const newBookBtn = document.querySelector(".newBook");
 const submitBtn = document.querySelector(".submit");
+let title = document.getElementById("title");
+let author = document.getElementById("author");
+let pages = document.getElementById("pages");
+let read = document.getElementById("read");
 
 //=================Book Functions=================
 function Book(title, author, pages, read) {
@@ -47,23 +51,28 @@ function displayBooks() {
     bookCard.appendChild(author);
 
     const pages = document.createElement("p");
-    pages.textContent = book.pages;
+    pages.textContent = `Pages: ${book.pages}`;
     bookCard.appendChild(pages);
 
     //============Read Book========================
-    const read = document.createElement("button");
-    read.textContent = book.read ? "Read" : "Not read";
-    bookCard.appendChild(read);
+    const readBtn = document.createElement("button");
+    readBtn.textContent = book.read ? "Read" : "Not Read";
+    readBtn.classList.add("function-btn");
+    readBtn.classList.add(book.read ? "btn-read" : "btn-not-read");
+    bookCard.appendChild(readBtn);
 
-    read.addEventListener("click", () => {
+    readBtn.addEventListener("click", () => {
       book.read = !book.read;
-      read.textContent = book.read ? "Read" : "Not read";
+      readBtn.classList.remove("btn-read", "btn-not-read");
+      readBtn.classList.add(book.read ? "btn-read" : "btn-not-read");
+      readBtn.textContent = book.read ? "Read" : "Not Read";
     });
 
     //=================Delete Book=================
     const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("delete-btn");
     deleteBtn.textContent = "Delete";
+    deleteBtn.classList.add("function-btn");
     bookCard.appendChild(deleteBtn);
     deleteBtn.addEventListener("click", () => {
       const index = myLibrary.findIndex((thisBook) => thisBook.id === book.id);
@@ -78,13 +87,35 @@ function displayBooks() {
 }
 
 //================Add New Book===========================
+function clearForm() {
+  title.value = "";
+  author.value = "";
+  pages.value = "";
+  read.checked = false;
+}
+
 newBookBtn.addEventListener("click", () => {
   dialog.showModal();
 });
 
 submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
+  container.innerHTML = "";
+  title = title.value;
+  author = author.value;
+  pages = pages.value;
+  read = read.checked;
+
+  if (title === "" || author === "" || pages === "") {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  const newBook = new Book(title, author, pages, read);
+  addBookToLibrary(newBook);
+  displayBooks();
   dialog.close();
+  clearForm();
 });
 
 //================Library Initialization=================
