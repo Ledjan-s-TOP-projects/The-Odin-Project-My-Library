@@ -17,7 +17,7 @@ function addBookToLibrary(book) {
   myLibrary.push(book);
 }
 
-//=================Base Database=================
+//=================Initial Database=================
 const book1 = new Book("The Hobbit", "J.R.R. Tolkien", 310, true);
 const book2 = new Book("1984", "George Orwell", 328, false);
 const book3 = new Book("To Kill a Mockingbird", "Harper Lee", 281, true);
@@ -28,7 +28,7 @@ addBookToLibrary(book2);
 addBookToLibrary(book3);
 addBookToLibrary(book4);
 
-//=================Display Functions=================
+//=================Display=================
 function displayBooks() {
   myLibrary.forEach((book) => {
     const bookCard = document.createElement("div");
@@ -46,9 +46,28 @@ function displayBooks() {
     pages.textContent = book.pages;
     bookCard.appendChild(pages);
 
+    //============Read Book========================
     const read = document.createElement("button");
-    read.textContent = book.read ? "read" : "Not read";
+    read.textContent = book.read ? "Read" : "Not read";
     bookCard.appendChild(read);
+
+    read.addEventListener("click", () => {
+      book.read = !book.read;
+      read.textContent = book.read ? "Read" : "Not read";
+    });
+
+    //=================Delete Book=================
+    const deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("delete-btn");
+    deleteBtn.textContent = "Delete";
+    bookCard.appendChild(deleteBtn);
+    deleteBtn.addEventListener("click", () => {
+      const index = myLibrary.findIndex((thisBook) => thisBook.id === book.id);
+      if (index !== -1) {
+        myLibrary.splice(index, 1);
+        container.removeChild(bookCard);
+      }
+    });
 
     container.appendChild(bookCard);
   });
