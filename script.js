@@ -1,5 +1,9 @@
 const myLibrary = [];
+//=================DOM Elements=================
 const container = document.querySelector(".container");
+const dialog = document.querySelector("dialog");
+const newBookBtn = document.querySelector(".newBook");
+const submitBtn = document.querySelector(".submit");
 
 //=================Book Functions=================
 function Book(title, author, pages, read) {
@@ -72,6 +76,16 @@ function displayBooks() {
     container.appendChild(bookCard);
   });
 }
+
+//================Add New Book===========================
+newBookBtn.addEventListener("click", () => {
+  dialog.showModal();
+});
+
+submitBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  dialog.close();
+});
 
 //================Library Initialization=================
 displayBooks();
