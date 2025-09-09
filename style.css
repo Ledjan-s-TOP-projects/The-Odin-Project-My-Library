@@ -51,7 +51,7 @@ header {
   border: none;
 }
 
-.deleteLibraryBtn:hover {
+.deleteAllBtn:hover {
   background-color: #ff4d4d;
   color: #fff;
   transition: background-color 0.3s ease;
@@ -129,14 +129,70 @@ header {
   transition: background-color 0.3s ease;
 }
 
-dialog {
+.dialog {
   border: none;
   border-radius: 10px;
+  width: 35vh;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.close {
+  color: gray;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.close:hover {
+  color: black;
 }
 
 form {
   display: flex;
   flex-direction: column;
+  gap: 0.7rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+form label {
+  font-weight: bold;
+}
+form input[type="text"],
+form input[type="number"] {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.dialog-btns {
+  margin-top: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: flex;
+  justify-content: space-between;
   gap: 1rem;
-  width: 300px;
+}
+
+.cancel {
+  background-color: rgb(25, 25, 164);
+  color: #fff;
+}
+.cancel:hover {
+  background-color: rgb(7, 7, 108);
+  color: #fff;
+}
+
+.submit {
+  background-color: #2e8531;
+  color: #fff;
+}
+.submit:hover {
+  background-color: #1c6c1e;
+  color: #fff;
 }

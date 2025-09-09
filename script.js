@@ -126,5 +126,32 @@ submitBtn.addEventListener("click", (e) => {
   clearForm();
 });
 
+//=================Close, Delete All and Cancel Buttons=================
+const deleteAllBtn = document.querySelector(".deleteAllBtn");
+const closeBtn = document.querySelector(".close");
+const cancelBtn = document.querySelector(".cancel");
+
+deleteAllBtn.addEventListener("click", () => {
+  if (myLibrary.length === 0) {
+    alert("No books to delete.");
+    return;
+  }
+  const confirmation = confirm("Are you sure you want to delete all books?");
+  if (confirmation) {
+    myLibrary.length = 0; // Clear the array
+    container.innerHTML = ""; // Clear the display
+  }
+});
+
+closeBtn.addEventListener("click", () => {
+  dialog.close();
+  clearForm();
+});
+
+cancelBtn.addEventListener("click", () => {
+  dialog.close();
+  clearForm();
+});
+
 //================Library Initialization=================
 displayBooks();
