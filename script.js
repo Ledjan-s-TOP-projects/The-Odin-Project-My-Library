@@ -109,21 +109,20 @@ newBookBtn.addEventListener("click", () => {
 submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
   container.innerHTML = "";
-  title = title.value;
-  author = author.value;
-  pages = pages.value;
-  read = read.checked;
+  const bookTitle = title.value;
+  const bookAuthor = author.value;
+  const bookPages = pages.value;
+  const bookRead = read.checked;
 
-  if (title === "" || author === "" || pages === "") {
+  if (bookTitle === "" || bookAuthor === "" || bookPages === "") {
     alert("Please fill in all fields.");
     return;
   }
 
-  const newBook = new Book(title, author, pages, read);
-  addBookToLibrary(newBook);
+  addBookToLibrary(new Book(bookTitle, bookAuthor, bookPages, bookRead));
   displayBooks();
-  dialog.close();
   clearForm();
+  dialog.close();
 });
 
 //=================Close, Delete All and Cancel Buttons=================
